@@ -1,6 +1,14 @@
 import { useEffect, useState } from 'react';
 import { parseApiResponse } from '../utils/api';
 
+const getActivitiesUrl = () => {
+  const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
+  if (codespaceName && typeof codespaceName === 'string' && codespaceName.trim()) {
+    return `https://${codespaceName.trim()}-8000.app.github.dev/api/activities/`;
+  }
+  return 'http://localhost:8000/api/activities/';
+};
+
 function Activities() {
   const [activities, setActivities] = useState([]);
   const [error, setError] = useState('');
@@ -8,7 +16,7 @@ function Activities() {
   useEffect(() => {
     async function loadActivities() {
       try {
-        const response = await fetch('/api/activities/');
+        const response = await fetch(getActivitiesUrl());
         if (!response.ok) {
           throw new Error('Failed to load activities');
         }

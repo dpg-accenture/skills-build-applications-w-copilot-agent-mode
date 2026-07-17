@@ -1,6 +1,14 @@
 import { useEffect, useState } from 'react';
 import { parseApiResponse } from '../utils/api';
 
+const getUsersUrl = () => {
+  const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
+  if (codespaceName && typeof codespaceName === 'string' && codespaceName.trim()) {
+    return `https://${codespaceName.trim()}-8000.app.github.dev/api/users/`;
+  }
+  return 'http://localhost:8000/api/users/';
+};
+
 function Users() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
@@ -8,7 +16,7 @@ function Users() {
   useEffect(() => {
     async function loadUsers() {
       try {
-        const response = await fetch('/api/users/');
+        const response = await fetch(getUsersUrl());
         if (!response.ok) {
           throw new Error('Failed to load users');
         }

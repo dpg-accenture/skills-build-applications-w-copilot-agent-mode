@@ -1,6 +1,14 @@
 import { useEffect, useState } from 'react';
 import { parseApiResponse } from '../utils/api';
 
+const getWorkoutsUrl = () => {
+  const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
+  if (codespaceName && typeof codespaceName === 'string' && codespaceName.trim()) {
+    return `https://${codespaceName.trim()}-8000.app.github.dev/api/workouts/`;
+  }
+  return 'http://localhost:8000/api/workouts/';
+};
+
 function Workouts() {
   const [workouts, setWorkouts] = useState([]);
   const [error, setError] = useState('');
@@ -8,7 +16,7 @@ function Workouts() {
   useEffect(() => {
     async function loadWorkouts() {
       try {
-        const response = await fetch('/api/workouts/');
+        const response = await fetch(getWorkoutsUrl());
         if (!response.ok) {
           throw new Error('Failed to load workouts');
         }
