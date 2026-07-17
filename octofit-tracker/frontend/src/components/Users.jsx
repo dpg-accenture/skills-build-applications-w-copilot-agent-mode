@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { buildApiUrl } from '../utils/api';
+import { buildApiUrl, parseApiResponse } from '../utils/api';
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -13,7 +13,7 @@ function Users() {
           throw new Error('Failed to load users');
         }
         const data = await response.json();
-        setUsers(Array.isArray(data) ? data : data.results || []);
+        setUsers(parseApiResponse(data));
       } catch (err) {
         setError(err.message);
       }

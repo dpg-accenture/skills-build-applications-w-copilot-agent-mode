@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { buildApiUrl } from '../utils/api';
+import { buildApiUrl, parseApiResponse } from '../utils/api';
 
 function Workouts() {
   const [workouts, setWorkouts] = useState([]);
@@ -13,7 +13,7 @@ function Workouts() {
           throw new Error('Failed to load workouts');
         }
         const data = await response.json();
-        setWorkouts(Array.isArray(data) ? data : data.results || []);
+        setWorkouts(parseApiResponse(data));
       } catch (err) {
         setError(err.message);
       }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { buildApiUrl } from '../utils/api';
+import { buildApiUrl, parseApiResponse } from '../utils/api';
 
 function Teams() {
   const [teams, setTeams] = useState([]);
@@ -13,7 +13,7 @@ function Teams() {
           throw new Error('Failed to load teams');
         }
         const data = await response.json();
-        setTeams(Array.isArray(data) ? data : data.results || []);
+        setTeams(parseApiResponse(data));
       } catch (err) {
         setError(err.message);
       }

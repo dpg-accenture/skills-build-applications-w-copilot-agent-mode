@@ -11,3 +11,19 @@ export function buildApiUrl(resource) {
   const baseUrl = getApiBaseUrl();
   return `${baseUrl}/api/${resource}/`;
 }
+
+export function parseApiResponse(data) {
+  if (Array.isArray(data)) {
+    return data;
+  }
+
+  if (data && Array.isArray(data.results)) {
+    return data.results;
+  }
+
+  if (data && Array.isArray(data.items)) {
+    return data.items;
+  }
+
+  return [];
+}

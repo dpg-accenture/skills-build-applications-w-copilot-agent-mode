@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { buildApiUrl } from '../utils/api';
+import { buildApiUrl, parseApiResponse } from '../utils/api';
 
 function Leaderboards() {
   const [entries, setEntries] = useState([]);
@@ -13,7 +13,7 @@ function Leaderboards() {
           throw new Error('Failed to load leaderboard');
         }
         const data = await response.json();
-        setEntries(Array.isArray(data) ? data : data.results || []);
+        setEntries(parseApiResponse(data));
       } catch (err) {
         setError(err.message);
       }
