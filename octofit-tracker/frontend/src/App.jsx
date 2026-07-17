@@ -1,6 +1,6 @@
 import { NavLink, Route, Routes } from 'react-router-dom';
 import Activities from './components/Activities';
-import Leaderboards from './components/Leaderboards';
+import Leaderboard from './components/Leaderboard';
 import Teams from './components/Teams';
 import Users from './components/Users';
 import Workouts from './components/Workouts';
@@ -52,7 +52,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/teams" element={<Teams />} />
         <Route path="/activities" element={<Activities />} />
-        <Route path="/leaderboards" element={<Leaderboards />} />
+        <Route path="/leaderboards" element={<Leaderboard />} />
         <Route path="/workouts" element={<Workouts />} />
       </Routes>
     </main>
